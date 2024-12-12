@@ -343,3 +343,10 @@ The CEO asks you, "What is your assessment of our current performance?" How woul
 >our resources effectively. Consulting is creating a nice chunk of revenue as well but I'd be interested to see how much of the salary expenses go to keeping 27 consultants on board. The first 2 quarters of 2025 have not been profitable >
 >
 >but as long as we keep our finances in order, there is potential for the business to grow in sales volume.
+
+---
+>All links:
+>
+>https://jupyter.org/try-jupyter/notebooks/?path=Takstitesti.ipynb
+>
+>https://lookerstudio.google.com/reporting/2130ee1a-b93a-49c7-9733-487e80ef78c8
