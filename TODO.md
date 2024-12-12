@@ -330,7 +330,7 @@ Forecast for next month: 113.23919137463486
 
 The CEO asks for an update on the performance of the 'AI Insight' product. How would you respond to this inquiry? (text/media input)
 
-It has gained a nice pie of the individual sales counts since launch, but that does not transfer into increased revenues. To make more suggestions I'd need the product be more well-defined. 
+>It has gained a nice pie of the individual sales counts since launch, but that does not transfer into increased revenues. To make more suggestions I'd need the product be more well-defined. 
 
 
 
@@ -338,4 +338,8 @@ It has gained a nice pie of the individual sales counts since launch, but that d
 
 The CEO asks you, "What is your assessment of our current performance?" How would you formulate your response?
 
-The number of sales and the revenue they've yielded has grown nicely in the past 12 operating months. The platform itself is driving the most revenue and maybe we should consider the size and shape of the organization to ensure we use our resources effectively. Consulting is creating a nice chunk of revenue as well but I'd be interested to see how much of the salary expenses go to keeping 27 consultants on board. The first 2 quarters of 2025 have not been profitable but as long as we keep our finances in order, there is potential for the business to grow in sales volume.
+>The number of sales and the revenue they've yielded has grown nicely in the past 12 operating months. The platform itself is driving the most revenue and maybe we should consider the size and shape of the organization to ensure we use >
+>
+>our resources effectively. Consulting is creating a nice chunk of revenue as well but I'd be interested to see how much of the salary expenses go to keeping 27 consultants on board. The first 2 quarters of 2025 have not been profitable >
+>
+>but as long as we keep our finances in order, there is potential for the business to grow in sales volume.
