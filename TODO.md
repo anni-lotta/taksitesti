@@ -181,6 +181,8 @@ for num, den in zip(numerators, denominators):
 
 Is there any additional data that you believe would enhance the depth of your analysis?
 
+<iframe width="600" height="450" src="https://lookerstudio.google.com/embed/reporting/2130ee1a-b93a-49c7-9733-487e80ef78c8/page/tEnnC" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+
 ```
 --sales data
 WITH data_a AS (
