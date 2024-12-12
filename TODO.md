@@ -181,7 +181,8 @@ for num, den in zip(numerators, denominators):
 
 Is there any additional data that you believe would enhance the depth of your analysis?
 
-<iframe width="600" height="450" src="https://lookerstudio.google.com/embed/reporting/2130ee1a-b93a-49c7-9733-487e80ef78c8/page/tEnnC" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+[Looker_Studio_‐raportit_-_12.12.2024_klo_8.59 (5).pdf](https://github.com/user-attachments/files/18111270/Looker_Studio_.raportit_-_12.12.2024_klo_8.59.5.pdf)
+
 
 ```
 --sales data
@@ -245,7 +246,8 @@ GROUP BY functional_group
 If you were to make a single recommendation to the company, what would it be?
 
 > The bulk of assumed salary expenses (based on department size) come from consulting, yet there are more sales made in 2025 on the software side of the business.
-If we assume that the senior level consultants get paid the most yet drive the least in sales value, maybe the size of the department should be thought through.
+>
+> If we assume that the senior level consultants get paid the most yet drive the least in sales value, maybe the size of the department should be thought through.
 
 ---
 
@@ -255,7 +257,10 @@ If we assume that the senior level consultants get paid the most yet drive the l
 
 The VP of Sales approaches you with a request: "Can you provide an estimate for the number of customers we can expect this month?" How do you reply?
 
-Python code for ARIMA:
+> [Looker_Studio_‐raportit_-_12.12.2024_klo_8.59 (4).pdf](https://github.com/user-attachments/files/18110947/Looker_Studio_.raportit_-_12.12.2024_klo_8.59.4.pdf)
+
+```
+#Python code for ARIMA:
 import pandas as pd
 import numpy as np
 from statsmodels.tsa.arima.model import ARIMA
@@ -263,7 +268,7 @@ from statsmodels.tsa.stattools import adfuller
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 import matplotlib.pyplot as plt
 
-# Data preparation with frequency specified:
+# Data from customers per month
 data = {
     'Date': pd.to_datetime(['2024-08-31', '2024-09-30', '2024-10-31', '2024-11-30', '2024-12-31',
                             '2025-01-31', '2025-02-28', '2025-03-31', '2025-04-30', '2025-05-31', '2025-06-30']),
@@ -274,25 +279,25 @@ df['Date'] = pd.to_datetime(df['Date'])
 df = df.set_index('Date')
 df = df.asfreq('ME')
 
-# Example ARIMA model (You'll need to determine the appropriate (p,d,q) from ACF/PACF)
-model = ARIMA(df['Buyers'], order=(1, 0, 1)) # Example order - adjust based on ACF/PACF.
+# ARIMA model fitting
+model = ARIMA(df['Buyers'], order=(1, 0, 1))
 model_fit = model.fit()
 print(model_fit.summary())
 
-#Corrected Forecast and plotting
+#Forecast
 forecast = model_fit.get_forecast(steps=1)
 conf_int = forecast.conf_int()
 print("Forecast for next month:", forecast.predicted_mean.iloc[-1])
+```
+> ~113
 
->> ~113
-[Looker_Studio_‐raportit_-_12.12.2024_klo_8.59 (3).pdf](https://github.com/user-attachments/files/18110941/Looker_Studio_.raportit_-_12.12.2024_klo_8.59.3.pdf)
 
 ## Task 10
 
 The CEO asks for an update on the performance of the 'AI Insight' product. How would you respond to this inquiry? (text/media input)
 
 It has gained a nice pie of the individual sales counts since launch, but that does not transfer into increased revenues. To make more suggestions I'd need the product be more well-defined. 
-[Looker_Studio_‐raportit_-_12.12.2024_klo_8.59 (4).pdf](https://github.com/user-attachments/files/18110947/Looker_Studio_.raportit_-_12.12.2024_klo_8.59.4.pdf)
+
 
 
 ## Task 11
