@@ -35,15 +35,14 @@ AND EXTRACT(MONTH from date) = 03
 
 How many customers generated revenue in January 2025?
 
->SELECT COUNT(DISTINCT customer_id) AS question2
->
->FROM `alva-devskills.insightedge_challange_dataset.revenue`
->
->WHERE EXTRACT(YEAR FROM date) = 2025
->
->AND EXTRACT(MONTH from date) = 01
+```
+SELECT COUNT(DISTINCT customer_id) AS question2
+FROM `alva-devskills.insightedge_challange_dataset.revenue`
+WHERE EXTRACT(YEAR FROM date) = 2025
+AND EXTRACT(MONTH from date) = 01
+```
 
->> 48
+> 48
 
 ## Task 3
 
