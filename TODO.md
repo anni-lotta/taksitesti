@@ -48,38 +48,45 @@ AND EXTRACT(MONTH from date) = 01
 
 Rank the customers by the total amount of revenue they have generated, and return the top 3 customer names (1 being highest).
 
->WITH data AS (
->
->    SELECT
->
->        DISTINCT b.name AS name,
->
->        ROUND(SUM(a.amount),2) AS revenue
->
->    FROM `alva-devskills.insightedge_challange_dataset.revenue` AS a
->
->    LEFT JOIN `alva-devskills.insightedge_challange_dataset.customers` AS b
->
->    ON a.customer_id = b.customer_id
->
->    GROUP BY name
->
->    ORDER BY revenue DESC
->
->    LIMIT 3
->
->)
->
->    SELECT name AS question3
->
->    FROM data
-    
+```
+WITH data AS (
+    SELECT
+        DISTINCT b.name AS name,
+        ROUND(SUM(a.amount),2) AS revenue
+    FROM `alva-devskills.insightedge_challange_dataset.revenue` AS a
+    LEFT JOIN `alva-devskills.insightedge_challange_dataset.customers` AS b
+    ON a.customer_id = b.customer_id
+    GROUP BY name
+    ORDER BY revenue DESC
+    LIMIT 3
+)
+    SELECT name AS question3
+    FROM data
+
+-- kysymys 4
+WITH data AS (
+  SELECT 
+    a.lead_id as denominator, 
+    a.entered_sales_funnel_at AS date, 
+    b.customer_id AS numerator
+ FROM `alva-devskills.insightedge_challange_dataset.leads` AS a 
+ LEFT JOIN `alva-devskills.insightedge_challange_dataset.leads_customers` AS b 
+ ON a.lead_id = b.lead_id
+)
+  SELECT 
+    DISTINCT FORMAT_DATE('%b %Y',date) AS question4,
+    ROUND(COUNT(numerator)/COUNT(denominator),2) AS conversionRate,
+  FROM data
+  GROUP BY question4
+  ORDER BY conversionRate DESC
+  LIMIT 1
+```    
  
->>1	WhiteOakSolutions
->>
->>2	FalconEye
->>
->>3	SummitWorks
+>1	WhiteOakSolutions
+>
+>2	FalconEye
+>
+>3	SummitWorks
 
 ## Task 4
 
