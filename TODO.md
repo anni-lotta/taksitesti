@@ -295,6 +295,34 @@ forecast = model_fit.get_forecast(steps=1)
 conf_int = forecast.conf_int()
 print("Forecast for next month:", forecast.predicted_mean.iloc[-1])
 ```
+```
+                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                 Buyers   No. Observations:                   11
+Model:                 ARIMA(1, 0, 1)   Log Likelihood                 -44.810
+Date:                Thu, 12 Dec 2024   AIC                             97.621
+Time:                        13:43:58   BIC                             99.212
+Sample:                    08-31-2024   HQIC                            96.617
+                         - 06-30-2025                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         61.5676     41.702      1.476      0.140     -20.168     143.303
+ar.L1          0.9132      0.219      4.174      0.000       0.484       1.342
+ma.L1          0.5517      0.334      1.650      0.099      -0.104       1.207
+sigma2       154.3261     86.133      1.792      0.073     -14.491     323.144
+===================================================================================
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 0.61
+Prob(Q):                              0.99   Prob(JB):                         0.74
+Heteroskedasticity (H):               5.91   Skew:                             0.26
+Prob(H) (two-sided):                  0.11   Kurtosis:                         1.96
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+Forecast for next month: 113.23919137463486
+```
 > ~113
 
 
