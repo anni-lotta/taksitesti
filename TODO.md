@@ -50,24 +50,38 @@ How many customers generated revenue in January 2025?
 
 Rank the customers by the total amount of revenue they have generated, and return the top 3 customer names (1 being highest).
 
-WITH data AS (
-    SELECT
-        DISTINCT b.name AS name,
-        ROUND(SUM(a.amount),2) AS revenue
-    FROM `alva-devskills.insightedge_challange_dataset.revenue` AS a
-    LEFT JOIN `alva-devskills.insightedge_challange_dataset.customers` AS b
-    ON a.customer_id = b.customer_id
-    GROUP BY name
-    ORDER BY revenue DESC
-    LIMIT 3
-)
-    SELECT name AS question3
-    FROM data
+>WITH data AS (
+>
+>    SELECT
+>
+>        DISTINCT b.name AS name,
+>
+>        ROUND(SUM(a.amount),2) AS revenue
+>
+>    FROM `alva-devskills.insightedge_challange_dataset.revenue` AS a
+>
+>    LEFT JOIN `alva-devskills.insightedge_challange_dataset.customers` AS b
+>
+>    ON a.customer_id = b.customer_id
+>
+>    GROUP BY name
+>
+>    ORDER BY revenue DESC
+>
+>    LIMIT 3
+>
+>)
+>
+>    SELECT name AS question3
+>
+>    FROM data
     
->> 
-1	WhiteOakSolutions
-2	FalconEye
-3	SummitWorks
+ 
+>>1	WhiteOakSolutions
+>>
+>>2	FalconEye
+>>
+>>3	SummitWorks
 
 ## Task 4
 
