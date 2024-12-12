@@ -119,6 +119,7 @@ WITH data AS (
 
 Considering your response to the previous question (Task 4), present arguments both in favor of and against qualifying it as a 'good insight'.
 
+```
 WITH data AS (
   SELECT 
     a.lead_id as denominator, 
@@ -136,8 +137,9 @@ WITH data AS (
   FROM data
   GROUP BY question4
   ORDER BY question4 ASC
-
-Python code:
+```
+```
+#Python code:
 import statsmodels.api as sm
 import numpy as np
 
@@ -153,16 +155,25 @@ for num, den in zip(numerators, denominators):
     # Use Wilson Score Interval
     conf_int = sm.stats.proportion_confint(num, den, alpha=1-confidence_level, method='wilson')
     print(f"Numerator: {num}, Denominator: {den}, CI: {conf_int}")
+```
     
->>Conversion rate of 0.25 where n = 40 
-Pros:
-    - 40 observations is enough for a proportion sample
-    - at 95% confidence level for the test group proportion to be 25% at the power of 80%, a sample size needs to be minimum 12
-    - Second highest low bound suggests that the value even in worst scenarios would be one of the best
-Cons: 
-    - Tinier sample size before a change in the leads trend
-    - July 2024 has the second highest standard error of proportion in the observed months
-    - Comparatively moderately sized Wilson Score confidence interval compared to the later proportions with larger samples
+>Conversion rate of 0.25 where n = 40 
+>
+>Pros:
+>
+>    - 40 observations is enough for a proportion sample
+>
+>    - at 95% confidence level for the test group proportion to be 25% at the power of 80%, a sample size needs to be minimum 12
+>
+>    - Second highest low bound suggests that the value even in worst scenarios would be one of the best
+>
+>Cons: 
+>
+>    - Tinier sample size before a change in the leads trend
+>
+>    - July 2024 has the second highest standard error of proportion in the observed months
+>
+>    - Comparatively moderately sized Wilson Score confidence interval compared to the later proportions with larger samples
 
 ## Task 6
 
