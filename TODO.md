@@ -22,25 +22,96 @@ Once you have a query that answers the question, add the code snippet to the spe
 
 How much revenue was earned during March 2025?
 
-> TODO: Your answer
+```
+SELECT ROUND(SUM(amount), 2) AS question1
+FROM `alva-devskills.insightedge_challange_dataset.revenue`
+WHERE EXTRACT(YEAR FROM date) = 2025
+AND EXTRACT(MONTH from date) = 03
+```
+
+> 60659.16
 
 ## Task 2
 
 How many customers generated revenue in January 2025?
 
-> TODO: Your answer
+```
+SELECT COUNT(DISTINCT customer_id) AS question2
+FROM `alva-devskills.insightedge_challange_dataset.revenue`
+WHERE EXTRACT(YEAR FROM date) = 2025
+AND EXTRACT(MONTH from date) = 01
+```
+
+> 48
 
 ## Task 3
 
 Rank the customers by the total amount of revenue they have generated, and return the top 3 customer names (1 being highest).
 
-> TODO: Your answer
+```
+WITH data AS (
+    SELECT
+        DISTINCT b.name AS name,
+        ROUND(SUM(a.amount),2) AS revenue
+    FROM `alva-devskills.insightedge_challange_dataset.revenue` AS a
+    LEFT JOIN `alva-devskills.insightedge_challange_dataset.customers` AS b
+    ON a.customer_id = b.customer_id
+    GROUP BY name
+    ORDER BY revenue DESC
+    LIMIT 3
+)
+    SELECT name AS question3
+    FROM data
+
+-- kysymys 4
+WITH data AS (
+  SELECT 
+    a.lead_id as denominator, 
+    a.entered_sales_funnel_at AS date, 
+    b.customer_id AS numerator
+ FROM `alva-devskills.insightedge_challange_dataset.leads` AS a 
+ LEFT JOIN `alva-devskills.insightedge_challange_dataset.leads_customers` AS b 
+ ON a.lead_id = b.lead_id
+)
+  SELECT 
+    DISTINCT FORMAT_DATE('%b %Y',date) AS question4,
+    ROUND(COUNT(numerator)/COUNT(denominator),2) AS conversionRate,
+  FROM data
+  GROUP BY question4
+  ORDER BY conversionRate DESC
+  LIMIT 1
+```    
+ 
+>1	WhiteOakSolutions
+>
+>2	FalconEye
+>
+>3	SummitWorks
 
 ## Task 4
 
 Which month’s leads had the highest customer conversion rate? What was the Month, Year, and what was the Conversion rate?
 
-> TODO: Your answer
+```
+WITH data AS (
+  SELECT 
+    a.lead_id as denominator, 
+    a.entered_sales_funnel_at AS date, 
+    b.customer_id AS numerator
+ FROM `alva-devskills.insightedge_challange_dataset.leads` AS a 
+ LEFT JOIN `alva-devskills.insightedge_challange_dataset.leads_customers` AS b 
+ ON a.lead_id = b.lead_id
+)
+  SELECT 
+    DISTINCT FORMAT_DATE('%b %Y',date) AS question4,
+    ROUND(COUNT(numerator)/COUNT(denominator),2) AS conversionRate,
+  FROM data
+  GROUP BY question4
+  ORDER BY conversionRate DESC
+  LIMIT 1
+```
+  
+> Jul 2024 0.25
 
 ---
 
@@ -48,19 +119,135 @@ Which month’s leads had the highest customer conversion rate? What was the Mon
 
 Considering your response to the previous question (Task 4), present arguments both in favor of and against qualifying it as a 'good insight'.
 
-> TODO: Your answer
+```
+WITH data AS (
+  SELECT 
+    a.lead_id as denominator, 
+    a.entered_sales_funnel_at AS date, 
+    b.customer_id AS numerator
+ FROM `alva-devskills.insightedge_challange_dataset.leads` AS a 
+ LEFT JOIN `alva-devskills.insightedge_challange_dataset.leads_customers` AS b 
+ ON a.lead_id = b.lead_id
+)
+  SELECT 
+    DISTINCT FORMAT_DATE('%Y %m',date) AS question4,
+    ROUND(COUNT(numerator)/COUNT(denominator),2) AS conversionRate,
+    COUNT(numerator) AS numerator,
+    COUNT(denominator) AS denominator
+  FROM data
+  GROUP BY question4
+  ORDER BY question4 ASC
+```
+```
+#Python code:
+import statsmodels.api as sm
+import numpy as np
+
+# Question 4 data
+numerators = [2, 0, 0, 0, 3, 9, 10, 10, 12, 22, 10, 15, 30, 38, 34, 75, 30, 29]
+denominators = [10, 11, 5, 1, 25, 48, 40, 76, 100, 138, 125, 110, 197, 222, 205, 414, 200, 187]
+
+# Confidence level
+confidence_level = 0.95
+
+# Calculate confidence intervals
+for num, den in zip(numerators, denominators):
+    # Use Wilson Score Interval
+    conf_int = sm.stats.proportion_confint(num, den, alpha=1-confidence_level, method='wilson')
+    print(f"Numerator: {num}, Denominator: {den}, CI: {conf_int}")
+```
+    
+>Conversion rate of 0.25 where n = 40 
+>
+>Pros:
+>
+>    - 40 observations is enough for a proportion sample
+>
+>    - at 95% confidence level for the test group proportion to be 25% at the power of 80%, a sample size needs to be minimum 12
+>
+>    - Second highest low bound suggests that the value even in worst scenarios would be one of the best
+>
+>Cons: 
+>
+>    - Tinier sample size before a change in the leads trend
+>
+>    - July 2024 has the second highest standard error of proportion in the observed months
+>
+>    - Comparatively moderately sized Wilson Score confidence interval compared to the later proportions with larger samples
+>
+>[Task 5.xlsx](https://github.com/user-attachments/files/18111189/Task.5.xlsx)
 
 ## Task 6
 
 Is there any additional data that you believe would enhance the depth of your analysis?
 
-> TODO: Your answer
+[Looker_Studio_‐raportit_-_12.12.2024_klo_8.59 (5).pdf](https://github.com/user-attachments/files/18111270/Looker_Studio_.raportit_-_12.12.2024_klo_8.59.5.pdf)
+
+
+```
+--sales data
+WITH data_a AS (
+  SELECT
+    level_1 AS revSource,
+    level_2 AS product,
+    ROUND(SUM(amount),2) AS revenue,
+    COUNT(customer_id) AS purchases,
+    COUNT(DISTINCT customer_id) AS buyers,
+    ROUND(1-(COUNT(DISTINCT customer_id)/COUNT(customer_id)),2) AS repeat_purchasers
+  FROM `alva-devskills.insightedge_challange_dataset.revenue` 
+  WHERE EXTRACT(YEAR FROM date) = 2025
+  GROUP BY product, revSource
+),
+data_b AS (
+  SELECT
+    level_1 AS revSource,
+    "total" AS product,
+    ROUND(SUM(amount),2) AS revenue,
+    COUNT(customer_id) AS purchases,
+    COUNT(DISTINCT customer_id) AS buyers,
+    ROUND(1-(COUNT(DISTINCT customer_id)/COUNT(customer_id)),2) AS repeat_purchasers
+  FROM `alva-devskills.insightedge_challange_dataset.revenue` 
+  WHERE EXTRACT(YEAR FROM date) = 2025
+  GROUP BY revSource, product
+)
+SELECT * FROM data_a
+UNION DISTINCT
+SELECT * FROM data_b
+ORDER BY revSource, product DESC
+```
+```
+-- cost data
+SELECT  
+  DISTINCT level_1 AS costDriver,
+  level_2 AS costDrilldown,
+  date,
+  CASE 
+    WHEN amount = '#REF!' THEN '9500'
+    ELSE amount
+  END AS cost
+  --SUM(CAST(amount AS float64)) AS cost
+FROM `alva-devskills.insightedge_challange_dataset.cost` 
+WHERE EXTRACT(YEAR FROM date) = 2025
+--GROUP BY 1,2
+--ORDER BY 1,2
+```
+```
+-- employee counts per department
+SELECT 
+  functional_group,
+  COUNT(employee_id) AS employee_count
+FROM `alva-devskills.insightedge_challange_dataset.employees`
+WHERE end_date IS NULL
+GROUP BY functional_group
+```
 
 ## Task 7
 
 If you were to make a single recommendation to the company, what would it be?
 
-> TODO: Your answer
+> The bulk of assumed salary expenses (based on department size) come from consulting, yet there are more sales made in 2025 on the software side of the business.
+>
+> If we assume that the senior level consultants get paid the most yet drive the least in sales value, maybe the size of the department should be thought through.
 
 ---
 
@@ -70,16 +257,96 @@ If you were to make a single recommendation to the company, what would it be?
 
 The VP of Sales approaches you with a request: "Can you provide an estimate for the number of customers we can expect this month?" How do you reply?
 
-> TODO: Your answer
+> [Looker_Studio_‐raportit_-_12.12.2024_klo_8.59 (4).pdf](https://github.com/user-attachments/files/18110947/Looker_Studio_.raportit_-_12.12.2024_klo_8.59.4.pdf)
+>
+> ARIMA Autoregressive Integrated Moving Average
+>
+> Before the Google sale, Looker used to have integrated ARIMA but I didn't find it from Google's documentation anymore so I made the forecast with Python on Jupyter notebook
+>
+> https://jupyter.org/try-jupyter/notebooks/?path=Takstitesti.ipynb
+
+```
+#Python code for ARIMA:
+import pandas as pd
+import numpy as np
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+import matplotlib.pyplot as plt
+
+# Data from customers per month
+data = {
+    'Date': pd.to_datetime(['2024-08-31', '2024-09-30', '2024-10-31', '2024-11-30', '2024-12-31',
+                            '2025-01-31', '2025-02-28', '2025-03-31', '2025-04-30', '2025-05-31', '2025-06-30']),
+    'Buyers': [14, 23, 26, 33, 40, 48, 48, 71, 101, 128, 124]
+}
+df = pd.DataFrame(data)
+df['Date'] = pd.to_datetime(df['Date'])
+df = df.set_index('Date')
+df = df.asfreq('ME')
+
+# ARIMA model fitting
+model = ARIMA(df['Buyers'], order=(1, 0, 1))
+model_fit = model.fit()
+print(model_fit.summary())
+
+#Forecast
+forecast = model_fit.get_forecast(steps=1)
+conf_int = forecast.conf_int()
+print("Forecast for next month:", forecast.predicted_mean.iloc[-1])
+```
+```
+                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                 Buyers   No. Observations:                   11
+Model:                 ARIMA(1, 0, 1)   Log Likelihood                 -44.810
+Date:                Thu, 12 Dec 2024   AIC                             97.621
+Time:                        13:43:58   BIC                             99.212
+Sample:                    08-31-2024   HQIC                            96.617
+                         - 06-30-2025                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         61.5676     41.702      1.476      0.140     -20.168     143.303
+ar.L1          0.9132      0.219      4.174      0.000       0.484       1.342
+ma.L1          0.5517      0.334      1.650      0.099      -0.104       1.207
+sigma2       154.3261     86.133      1.792      0.073     -14.491     323.144
+===================================================================================
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 0.61
+Prob(Q):                              0.99   Prob(JB):                         0.74
+Heteroskedasticity (H):               5.91   Skew:                             0.26
+Prob(H) (two-sided):                  0.11   Kurtosis:                         1.96
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+Forecast for next month: 113.23919137463486
+```
+> ~113
+
 
 ## Task 10
 
 The CEO asks for an update on the performance of the 'AI Insight' product. How would you respond to this inquiry? (text/media input)
 
-> TODO: Your answer
+>It has gained a nice pie of the individual sales counts since launch, but that does not transfer into increased revenues. To make more suggestions I'd need the product be more well-defined. 
+
+
 
 ## Task 11
 
 The CEO asks you, "What is your assessment of our current performance?" How would you formulate your response?
 
-> TODO: Your answer
+>The number of sales and the revenue they've yielded has grown nicely in the past 12 operating months. The platform itself is driving the most revenue and maybe we should consider the size and shape of the organization to ensure we use >
+>
+>our resources effectively. Consulting is creating a nice chunk of revenue as well but I'd be interested to see how much of the salary expenses go to keeping 27 consultants on board. The first 2 quarters of 2025 have not been profitable >
+>
+>but as long as we keep our finances in order, there is potential for the business to grow in sales volume.
+
+---
+>All links:
+>
+>https://jupyter.org/try-jupyter/notebooks/?path=Takstitesti.ipynb
+>
+>https://lookerstudio.google.com/reporting/2130ee1a-b93a-49c7-9733-487e80ef78c8
