@@ -174,6 +174,7 @@ for num, den in zip(numerators, denominators):
 >    - July 2024 has the second highest standard error of proportion in the observed months
 >
 >    - Comparatively moderately sized Wilson Score confidence interval compared to the later proportions with larger samples
+[Task 5.xlsx](https://github.com/user-attachments/files/18111189/Task.5.xlsx)
 
 ## Task 6
 
