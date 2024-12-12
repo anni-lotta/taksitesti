@@ -92,6 +92,7 @@ WITH data AS (
 
 Which month’s leads had the highest customer conversion rate? What was the Month, Year, and what was the Conversion rate?
 
+```
 WITH data AS (
   SELECT 
     a.lead_id as denominator, 
@@ -108,8 +109,9 @@ WITH data AS (
   GROUP BY question4
   ORDER BY conversionRate DESC
   LIMIT 1
+```
   
->> Jul 2024 0.25
+> Jul 2024 0.25
 
 ---
 
