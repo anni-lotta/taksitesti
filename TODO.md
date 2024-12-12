@@ -258,6 +258,12 @@ If you were to make a single recommendation to the company, what would it be?
 The VP of Sales approaches you with a request: "Can you provide an estimate for the number of customers we can expect this month?" How do you reply?
 
 > [Looker_Studio_‐raportit_-_12.12.2024_klo_8.59 (4).pdf](https://github.com/user-attachments/files/18110947/Looker_Studio_.raportit_-_12.12.2024_klo_8.59.4.pdf)
+>
+> ARIMA Autoregressive Integrated Moving Average
+>
+> Before the Google sale, Looker used to have integrated ARIMA but I didn't find it from Google's documentation anymore so I made the forecast with Python on Jupyter notebook
+>
+> https://jupyter.org/try-jupyter/notebooks/?path=Takstitesti.ipynb
 
 ```
 #Python code for ARIMA:
