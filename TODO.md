@@ -22,6 +22,7 @@ Once you have a query that answers the question, add the code snippet to the spe
 
 How much revenue was earned during March 2025?
 
+```
 >SELECT ROUND(SUM(amount), 2) AS question1
 >
 >FROM `alva-devskills.insightedge_challange_dataset.revenue`
@@ -29,6 +30,7 @@ How much revenue was earned during March 2025?
 >WHERE EXTRACT(YEAR FROM date) = 2025
 >
 >AND EXTRACT(MONTH from date) = 03
+```
 
 >> 60659.16
 
