@@ -181,6 +181,7 @@ for num, den in zip(numerators, denominators):
 
 Is there any additional data that you believe would enhance the depth of your analysis?
 
+```
 --sales data
 WITH data_a AS (
   SELECT
@@ -210,7 +211,8 @@ SELECT * FROM data_a
 UNION DISTINCT
 SELECT * FROM data_b
 ORDER BY revSource, product DESC
-
+```
+```
 -- cost data
 SELECT  
   DISTINCT level_1 AS costDriver,
@@ -225,7 +227,8 @@ FROM `alva-devskills.insightedge_challange_dataset.cost`
 WHERE EXTRACT(YEAR FROM date) = 2025
 --GROUP BY 1,2
 --ORDER BY 1,2
-
+```
+```
 -- employee counts per department
 SELECT 
   functional_group,
@@ -233,6 +236,7 @@ SELECT
 FROM `alva-devskills.insightedge_challange_dataset.employees`
 WHERE end_date IS NULL
 GROUP BY functional_group
+```
 
 ## Task 7
 
